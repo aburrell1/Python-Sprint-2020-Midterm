@@ -29,7 +29,6 @@ with open(filename) as f:
         recoveries.append(float(row[3]))
 
 fig, ax = plt.subplots()
-#ax.plot(dates, number_of_infections, c="red", alpha=0.5)
 
 # Set title and labels.
 ax.set_title("COVID-19 information(including deaths, recoveries, etc.) in the US from March 1st, 2020 to April 20, 2020"
@@ -40,7 +39,7 @@ ax.set_ylabel("Accumulative Number of Cases, Deaths, Recoveries, etc.", fontsize
 ax.tick_params(axis="both", which="major", labelsize=6)
 
 # Plot all rows
-plt.text(33, 750000, s='Number of Infections')
+plt.text(40, 750000, s='Number of Infections')
 plt.plot(dates, number_of_infections, '-o')
 
 plt.text(50, 1000, s='Deaths')
@@ -52,10 +51,5 @@ plt.plot(dates, recoveries, '-o', c='orange')
 
 # Set axis
 ax.axis([-1, 52, -30000, 800000])
-
-# for i_x, i_y in zip(dates, number_of_infections):
-#     plt.text(i_x, i_y, '({}, {})'.format(i_x, i_y))
-
-#plt.plot(dates, deaths, '-o')
 
 plt.show()
