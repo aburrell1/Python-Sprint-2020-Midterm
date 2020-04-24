@@ -8,6 +8,13 @@ import csv
 # When the second graph is closed, then the explanation of the d_rates will show up in the console.
 ###################################################################################################################
 
+# SOURCES
+###################################################################################################################
+# https://covidusa.net/?autorefresh=1
+# https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/cases-in-us.html
+###################################################################################################################
+
+
 filename = 'data/covid_19.csv'
 
 """Process the csv file and extract information to use for the graph."""
@@ -22,16 +29,19 @@ with open(filename) as f:
     d_rates1 = []
     d_rates2 = []
 
-    # Append the headers "d_rate1" and "d_rate2".
-    header_row.append("d_rate1")
-    header_row.append("d_rate2")
+
+
 
     # Rewrite the file using the contents in this list. This is the best option I have right now. I do not know how
-    # to write to specific columns.
+    # to write to specific columns in a csv file.
     new_data = []
 
     # In the rewritten file, write the header row first.
     new_data.append(header_row)
+
+    # Append the headers "d_rate1" and "d_rate2".
+    new_data[0][4] = "d_rate1"
+    new_data[0][5] = "d_rate2"
 
     for row in reader:
         # Append the data containing everything including the two d_rates.
@@ -46,6 +56,7 @@ with open(filename) as f:
         d_rates1.append(float(row[2]) / float(row[1]))
         d_rates2.append(float(row[2]) / float(row[3]))
 
+print(header_row[4])
 
 # Write the new data that includes the d_rates into the file.
 with open('data/covid_19.csv', 'w', newline='') as f:
@@ -58,9 +69,9 @@ with open('data/covid_19.csv', 'w', newline='') as f:
 fig, ax = plt.subplots()
 ax.set_title("COVID-19 information(including deaths, recoveries, etc.) in the US from March 1st, 2020 to April 20, 2020"
              ".", fontsize=15)
-ax.set_xlabel("Dates", fontsize=5)
+ax.set_xlabel("Dates", fontsize=10)
 fig.autofmt_xdate()
-ax.set_ylabel("Accumulative Number of Cases, Deaths, Recoveries, etc.", fontsize=5)
+ax.set_ylabel("Accumulative Number of Cases, Deaths, Recoveries, etc.", fontsize=10)
 ax.tick_params(axis="both", which="major", labelsize=6)
 
 """FIRST GRAPH"""
@@ -85,9 +96,9 @@ plt.show()
 fig, ax = plt.subplots()
 ax.set_title("COVID-19 death rates in the US from March 1st, 2020 to April 20, 2020"
              ".", fontsize=15)
-ax.set_xlabel("Dates", fontsize=5)
+ax.set_xlabel("Dates", fontsize=10)
 fig.autofmt_xdate()
-ax.set_ylabel("death rates at certain dates", fontsize=5)
+ax.set_ylabel("death rates at certain dates", fontsize=10)
 ax.tick_params(axis="both", which="major", labelsize=6)
 
 #Plot d_rates1
