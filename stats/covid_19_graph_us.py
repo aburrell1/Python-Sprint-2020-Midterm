@@ -29,17 +29,16 @@ with open(filename) as f:
     d_rates1 = []
     d_rates2 = []
 
-
-
-
     # Rewrite the file using the contents in this list. This is the best option I have right now. I do not know how
     # to write to specific columns in a csv file.
-    new_data = []
-
-    # In the rewritten file, write the header row first.
-    new_data.append(header_row)
+    new_data = [header_row]
 
     # Append the headers "d_rate1" and "d_rate2".
+    if len(new_data[0]) == 4:
+        new_data[0].append("d_rate1")
+        new_data[0].append("d_rate2")
+        print("yes")
+
     new_data[0][4] = "d_rate1"
     new_data[0][5] = "d_rate2"
 
@@ -56,7 +55,6 @@ with open(filename) as f:
         d_rates1.append(float(row[2]) / float(row[1]))
         d_rates2.append(float(row[2]) / float(row[3]))
 
-print(header_row[4])
 
 # Write the new data that includes the d_rates into the file.
 with open('data/covid_19.csv', 'w', newline='') as f:
@@ -101,11 +99,11 @@ fig.autofmt_xdate()
 ax.set_ylabel("death rates at certain dates", fontsize=10)
 ax.tick_params(axis="both", which="major", labelsize=6)
 
-#Plot d_rates1
+# Plot d_rates1
 plt.text(51, 0, s='d_rate1')
 plt.plot(dates, d_rates1, '-o', c='yellow')
 
-#Plot d_rates2
+# Plot d_rates2
 plt.text(51, 0.6, s='d_rate2')
 plt.plot(dates, d_rates2, '-o', c='green')
 
