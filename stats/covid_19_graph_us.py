@@ -37,10 +37,6 @@ with open(filename) as f:
     if len(new_data[0]) == 4:
         new_data[0].append("d_rate1")
         new_data[0].append("d_rate2")
-        print("yes")
-
-    new_data[0][4] = "d_rate1"
-    new_data[0][5] = "d_rate2"
 
     for row in reader:
         # Append the data containing everything including the two d_rates.
@@ -55,7 +51,6 @@ with open(filename) as f:
         d_rates1.append(float(row[2]) / float(row[1]))
         d_rates2.append(float(row[2]) / float(row[3]))
 
-
 # Write the new data that includes the d_rates into the file.
 with open('data/covid_19.csv', 'w', newline='') as f:
     writer = csv.writer(f)
@@ -63,7 +58,6 @@ with open('data/covid_19.csv', 'w', newline='') as f:
 
 
 """Set titles and labels"""
-
 fig, ax = plt.subplots()
 ax.set_title("COVID-19 information(including deaths, recoveries, etc.) in the US from March 1st, 2020 to April 20, 2020"
              ".", fontsize=15)
