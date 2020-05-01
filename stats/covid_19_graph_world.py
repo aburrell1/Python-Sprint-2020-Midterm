@@ -17,11 +17,25 @@ deaths = [response_dict[x]['Deaths'] for x in range(39, len(response_dict) - 2)]
 recoveries = [response_dict[x]['Recovered'] for x in range(39, len(response_dict) - 2)]
 d_rates1 = [(response_dict[x]['Deaths']) / (response_dict[x]['Confirmed']) for x in range(39, len(response_dict) - 2)]
 d_rates2 = [(response_dict[x]['Deaths']) / (response_dict[x]['Recovered']) for x in range(39, len(response_dict) - 2)]
+headers = []
 
-new_data = []
+for key in response_dict[0].keys():
+    headers.append(key)
+
+headers[0] = headers[1]
+headers[1] = "Confirmed"
+headers[3] = headers[4]
+headers[4] = "d_rate1"
+if len(headers) == 5:
+    headers.append("d_rate2")
+
+new_data = ['n']
+
+new_data[0] = headers
 for x in range(0, len(cases)):
     new_data.append([dates[x], cases[x], deaths[x], recoveries[x], d_rates1[x], d_rates2[x]])
 
+print(new_data)
 with open('data/covid_19_world.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     writer.writerows(new_data)
@@ -80,7 +94,7 @@ print("The d_rates work like this: if the death rate grows higher than the infec
       "recoveries. \nTherefore the ratio of deaths/infections is lower than deaths/recoveries.\n"
       "The number of infections starts out growing much faster than the number of recoveries.\n"
       "Therefore d_rate1 remains low with a small ratio. Meanwhile, d_rate2 springs up because the number of "
-      "recoveries gets higher slowly whereas the death count goes up much faster.\n"
-      "However, the rate of recoveries starts to grow higher than the rate of deaths and therefore d_rate2 gets smaller"
-      ".\n"
+      "recoveries gets higher slowly whereas the death count goes up much faster(although it doesn't surpass the total"
+      "number of recoveries.\n"
       "At the end, d_rate2 remains flat because the death rate and recovery rates are similar to each other.")
+
